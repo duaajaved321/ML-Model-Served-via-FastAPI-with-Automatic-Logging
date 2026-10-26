@@ -1,0 +1,39 @@
+AUDIT DEMONSTRATION — EXECUTED AUTOMATED INTEGRATION TESTS
+-----------------------------------------------------------
+Test command: python -m pytest -q
+Result: 4 passed in 1.84s
+
+Each test uses a locally generated synthetic Random Forest TEST MODEL,
+not the UCI diabetes model. This output demonstrates API/SQLite behavior only.
+
+Scenario: valid complete JSON request
+  HTTP: 200
+  SQLite: outcome='success', http_status=200, error_type=NULL
+  Response includes prediction, probabilities, generated request_id.
+
+Scenario: missing required fields and age=-5
+  HTTP: 422
+  SQLite: outcome='failed', http_status=422,
+          error_type='RequestValidationError'
+
+Scenario: additional unknown field
+  HTTP: 422
+  SQLite: outcome='failed', http_status=422,
+          error_type='RequestValidationError'
+
+Scenario: GET /health
+  HTTP: 200
+  Response: {"status":"ok","model_loaded":true}
+  Health checks are NOT counted as prediction requests.
+
+For a persistent audit record from your own trained model:
+  1. python train_model.py
+  2. uvicorn app:app --reload
+  3. Send examples/valid_request.json and examples/invalid_request.json
+  4. python audit_report.py
+
+Predictions and UUIDs vary by model and request. No invented UCI output is shown.
+
+ACTUAL SQLITE ROWS FROM THE DEMO TEST MODEL (see audit_demo.sqlite):
+1 | 2026-10-23T11:34:55.805226+00:00 | ef65f05a-6c85-4f78-b783-694d2d677122 | 200 | success | Positive | -
+2 | 2026-10-23T11:34:55.811243+00:00 | 1ba36754-0743-4cba-beed-aa3f3cd8f59c | 422 | failed | - | RequestValidationError

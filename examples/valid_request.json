@@ -1,0 +1,18 @@
+{
+  "age": 45,
+  "gender": "Male",
+  "polyuria": "Yes",
+  "polydipsia": "Yes",
+  "sudden_weight_loss": "No",
+  "weakness": "Yes",
+  "polyphagia": "No",
+  "genital_thrush": "No",
+  "visual_blurring": "Yes",
+  "itching": "No",
+  "irritability": "No",
+  "delayed_healing": "No",
+  "partial_paresis": "No",
+  "muscle_stiffness": "No",
+  "alopecia": "No",
+  "obesity": "No"
+}

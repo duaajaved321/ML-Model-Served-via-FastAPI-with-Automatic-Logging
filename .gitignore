@@ -1,0 +1,10 @@
+__pycache__/
+.pytest_cache/
+.venv/
+.env
+*.pyc
+*.db
+*.sqlite
+*.sqlite3
+models/*.joblib
+models/training_metrics.json
